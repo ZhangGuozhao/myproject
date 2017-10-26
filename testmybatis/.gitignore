@@ -1,0 +1,15 @@
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+
+
+#нд╪Ч╪п
+apache-maven-3.5.0
+apache-tomcat-9.0.0.M26-windows-x64
+target
+
+
+#java

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!--配置mybatis的配置文件-->
+<configuration>
+    <!--设置控制台显示SQL语句-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <typeAliases>
+        <typeAlias alias="User" type="com.yihaomen.model.User"/>
+        <typeAlias alias="Article" type="com.yihaomen.model.Article"/>
+        <typeAlias alias="PageInfo" type="com.yihaomen.util.PageInfo"/>
+        <typeAlias alias="Blog" type="com.yihaomen.model.Blog"/>
+    </typeAliases>
+    <!--mybatis的插件进行配置:如下是分页插件-->
+    <plugins>
+        <plugin interceptor="com.yihaomen.util.PagePlugin">
+            <property name="dialect" value="mysql"/>
+            <!--若方法中出现了ListPage进行则进行拦截（正则表达式）-->
+            <property name="pageSqlId" value=".*ListPage.*"/>
+        </plugin>
+    </plugins>
+    <!-- 与spring 集成之后,这些可以完全删除,数据库连接的管理交给 spring 去管理 -->
+   <!--<environments default="development">-->
+       <!--&lt;!&ndash;在junit中测试时打开此项注释，spring启动在spring配置文件中进行配置&ndash;&gt;-->
+        <!--<environment id="development">-->
+            <!--<transactionManager type="JDBC"/>-->
+            <!--<dataSource type="POOLED">-->
+                <!--<property name="driver" value="com.mysql.jdbc.Driver"/>-->
+                <!--<property name="url" value="jdbc:mysql://127.0.0.1:3306/testmybatis" />-->
+                <!--<property name="username" value="root"/>-->
+                <!--<property name="password" value="root"/>-->
+            <!--</dataSource>-->
+        <!--</environment>-->
+    <!--</environments>-->
+
+    <!--交给spring里的（）-->
+    <!--在配置 sqlSessionFactory 的时候，由  <property name="mapperLocations" value="classpath*:com/yihaomen/mapper/*.xml" /> 去导入了-->
+    <!--<mappers>-->
+        <!--<mapper resource="com/yihaomen/mapper/UserMapper.xml"/>-->
+        <!--<mapper resource="com/yihaomen/mapper/BlogMapper.xml"/>-->
+    <!--</mappers>-->
+
+</configuration>

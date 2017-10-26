@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!--mybatis逆向配置文件，maven中引入插件-->
+    <context id="context1" targetRuntime="MyBatis3">
+        <!-- 抑制警告 -->
+        <property name="suppressTypeWarnings" value="true"/>
+
+        <!-- generate entity时，生成hashcode和equals方法 -->
+        <!-- <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" /> -->
+        <!-- generate entity时，生成serialVersionUID -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 这个插件只会增加字符串字段映射到一个JDBC字符的方法 -->
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+        <!-- genenat entity时,生成toString -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/testmybatis?useSSL=false&amp;nullNamePatternMatchesAll=true"
+                        userId="root" password="root">
+        </jdbcConnection>
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，
+        为 true时把JDBC DECIMAL和NUMERIC类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- generate Model -->
+        <javaModelGenerator targetPackage="com.yihaomen.model"
+                            targetProject="${project.build.directory}/../src/main/src_user">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="true"/>
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true"/>
+            <property name="isMergeable" value="false"/>
+        </javaModelGenerator>
+
+        <!-- generate xml -->
+        <sqlMapGenerator targetPackage="com.yihaomen.mapper"
+                         targetProject="${project.build.directory}/../src/main/src_user">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- generate Mapper -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yihaomen.inter"
+                             targetProject="${project.build.directory}/../src/main/src_user">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--
+          catalog CDATA #IMPLIED
+          schema CDATA #IMPLIED
+          tableName CDATA #REQUIRED
+          alias CDATA #IMPLIED
+          domainObjectName CDATA #IMPLIED
+          enableInsert CDATA #IMPLIED
+          enableSelectByPrimaryKey CDATA #IMPLIED
+          enableUpdateByPrimaryKey CDATA #IMPLIED
+          enableDeleteByPrimaryKey CDATA #IMPLIED
+          enableCountByExample CDATA #IMPLIED
+          enableUpdateByExample CDATA #IMPLIED
+          enableDeleteByExample CDATA #IMPLIED
+          enableSelectByExample CDATA #IMPLIED
+          selectByExampleQueryId CDATA #IMPLIED
+          selectByPrimaryKeyQueryId CDATA #IMPLIED
+          modelType CDATA #IMPLIED
+          escapeWildcards CDATA #IMPLIED
+          delimitIdentifiers CDATA #IMPLIED
+          delimitAllColumns CDATA #IMPLIED
+         -->
+<!--指定需要逆向的表名，逆向生成的pojo类名，以及mapper.xml  和mapper的-->
+        <table schema="" tableName="reverseengineer" domainObjectName="ReverseEngineer" modelType="flat"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+    </context>
+</generatorConfiguration>

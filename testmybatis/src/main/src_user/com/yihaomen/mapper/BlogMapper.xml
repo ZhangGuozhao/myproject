@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--动态语句的编写-->
+        <!--if where foreach这三个最常用，重点掌握-->
+<mapper namespace="com.yihaomen.inter.BlogMapper">
+    <!--mybaits if 语句处理 -->
+    <select id="dynamicIfTest" parameterType="Blog" resultType="Blog">
+        select * from t_blog where 1 = 1
+        <if test="title != null">
+            and title = #{title}
+        </if>
+        <if test="content != null">
+            and content = #{content}
+        </if>
+        <if test="owner != null">
+            and owner = #{owner}
+        </if>
+    </select>
+    <!--mybatis choose-->
+    <!--when元素表示当when中的条件满足的时候就输出其中的内容，跟JAVA中的switch效果差不多的是按照条件的顺序，当when中有条件满足的时候，就会跳出choose，即所有的when和otherwise条件中，只有一个会输出，当所有的我很条件都不满足的时候就输出otherwise中的内容。所以上述语句的意思非常简单， 当title!=null的时候就输出and titlte = #{title}，不再往下判断条件，当title为空且content!=null的时候就输出and content = #{content}，当所有条件都不满足的时候就输出otherwise中的内容。-->
+
+    <select id="dynamicChooseTest" parameterType="Blog" resultType="Blog">
+        select * from t_blog where 1 = 1
+        <choose>
+            <when test="title != null">
+                and title = #{title}
+            </when>
+            <when test="content != null">
+                and content = #{content}
+            </when>
+            <otherwise>
+                and owner = "owner1"
+            </otherwise>
+        </choose>
+    </select>
+    <!--mybatis trim-->
+    <!--添加where  前缀，自动忽略and or    -->
+    <select id="dynamicTrimTest" parameterType="Blog" resultType="Blog">
+        select * from t_blog
+        <trim prefix="where" prefixOverrides="and |or">
+            <if test="title != null">
+                title = #{title}
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="owner != null">
+                or owner = #{owner}
+            </if>
+        </trim>
+    </select>
+    <!--mybatis where-->
+    <!--where元素的作用是会在写入where元素的地方输出一个where，另外一个好处是你不需要考虑where元素里面的条件输出是什么
+    样子的，MyBatis会智能的帮你处理，如果所有的条件都不满足那么MyBatis就会查出所有的记录，
+    如果输出后是and 开头的，MyBatis会把第一个and忽略，当然如果是or开头的，MyBatis也会把它忽略；
+    此外，在where元素中你不需要考虑空格的问题，MyBatis会智能的帮你加上。
+    像上述例子中，如果title=null， 而content != null，
+    那么输出的整个语句会是select * from t_blog where content = #{content}，
+    而不是select * from t_blog where and content = #{content}，因为MyBatis会智能的把首个and 或 or 给忽略。-->
+    <select id="dynamicWhereTest" parameterType="Blog" resultType="Blog">
+        select * from t_blog
+        <where>
+            <if test="title != null">
+                title = #{title}
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="owner != null">
+                and owner = #{owner}
+            </if>
+        </where>
+    </select>
+    <!--mybatis set -->
+    <!--用于更新操作，set标签的作用于where相当，智能忽略和组装-->
+    <update id="dynamicSetTest" parameterType="Blog">
+        update t_blog
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="owner != null">
+                owner = #{owner}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--mybatis foreach -->
+    <select id="dynamicForeachTest" resultType="Blog">
+        select * from t_blog where id in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="dynamicForeach2Test" resultType="Blog">
+        select * from t_blog where id in
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <!--&#45;&#45;         select * from t_blog where title like "%"#{title}"%" and id in-->
+    <!--collection的值是主键-->
+    <!--collection： 必须跟mapper.java中@Param标签指定的元素名一样-->
+    <!--&#45;&#45;             map中的value值-->
+    <select id="dynamicForeach3Test" resultType="Blog">
+        select * from t_blog where id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+<!--    -->
+    <select id="dynamicForeach4Test" resultType="Blog">
+        select * from t_blog where title like "%"#{title}"%" and id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>
