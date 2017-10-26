@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/testhiberante</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">root</property>
+        <!-- JNDI 利用JNDI -->
+        <!--<property name="connection.datasource">java:comp/env/jdbc/bookshop</property>-->
+
+        <!--<property name="hibernate.current_session_context_class">thread</property>-->
+        <!--hibernate-sequence表不存在-->
+        <!--<property name="hibernate.id.new_generator_mappings">false</property>-->
+
+        <!-- SQL dialect 设置SQL方言-->
+        <property name="dialect">org.hibernate.dialect.MySQL57Dialect</property>
+
+
+        <!-- Echo all executed SQL to stdout -->
+        <!-- （控制台显示sql语句）设置数据显示对数据库的操作 -->
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <!-- Drop and re-create the database schema on startup -->
+        <!--可以自动根据hbm映射关系创建ddl语句，生产环境一般取消-->
+        <!--当hbm2ddl.auto 设置为create时可以从类中直接生成表-->
+        <property name="hbm2ddl.auto">update</property>
+
+        <!-- 启动时删数据库中的表，然后创建，退出时自动删除所有表 -->
+        <!--<property name="hbm2ddl.auto">create-drop</property>&ndash;&gt;-->
+        <!-- 自动修改，如果表结构与实体类不一致，那么就修改表使它们一致，数据会保留
+        <property name="hbm2ddl.auto">update</property>-->
+        <!-- 自动校验，如果表结构与实体类不一致，那么不做任何操作，报错
+        <property name="hbm2ddl.auto">validate</property>-->
+
+        <!--<event type="update"/>-->
+        <!--<class-cache class="com.testhibernate.entity.User"  usage="read-only"/>-->
+        <!--<collection-cache collection="com.testhibernate.entity.User" usage="nonstrict-read-write"/>-->
+        <!--<listener class="com.testhibernate.entity.User"/>-->
+        <!--数据库连接池配置c3p0-->
+        <!--<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>-->
+        <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
+        <property name="c3p0.max_size">30</property>
+        <property name="c3p0.min_size">10</property>
+        <property name="c3p0.max_statements">10</property>
+        <property name="c3p0.acquire_increment">1</property>
+        <property name="c3p0.timeout">30</property>
+        <property name="c3p0.idle_test_period">10</property>
+
+        <mapping class="com.testhibernate.entity.User"/>
+        <mapping class="com.testhibernate.entity.TTest"/>
+        <!--<mapping resource=/>-->
+    </session-factory>
+
+</hibernate-configuration>
