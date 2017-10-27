@@ -19,9 +19,9 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.2.11.Final</version>
         </dependency>
+        <!--hibernate与连接的c3p0的类在这个包里-->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <!--hibernate与连接的c3p0的类在这个包里-->
             <artifactId>hibernate-c3p0</artifactId>
             <version>5.2.11.Final</version>
         </dependency>
