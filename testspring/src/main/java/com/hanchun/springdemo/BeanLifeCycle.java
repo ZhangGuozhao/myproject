@@ -34,7 +34,6 @@ public class BeanLifeCycle implements InitializingBean, DisposableBean {
         System.out.println("Bean start .");
     }
 
-    //另一种方法，在配置文件中规定的 init-method="start" destroy-method="stop"  对应类中声明相应方法
     public void stop() {
         System.out.println("Bean stop.");
     }

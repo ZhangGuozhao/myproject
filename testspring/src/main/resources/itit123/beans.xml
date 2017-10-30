@@ -3,13 +3,33 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
-
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+    <!--这是一个spring配置文件-->
+<!--方法一:使用配置的方式-->
     <!-- 配置一个 bean -->
-    <bean id="helloWorld" class="cn.itit123.springdemo.HelloWorld">
-        <!-- 为属性赋值 -->
-        <property name="hello" value="Hello World"></property>
-    </bean>
-
+    <!--<bean id="helloWorld" class="cn.itit123.springdemo.HelloWorld">-->
+         <!--为属性赋值 -->
+        <!--<property name="hello" value="Hello World"></property>-->
+    <!--</bean>-->
+    <!--方法二:使用注解的方式-->
+    <!-- 配置自动扫描指定目录下的包
+            resource-pattern="xxx/*.class" 属性过滤特定的类
+        -->
+    <context:component-scan base-package="cn.itit123.springdemo2" >
+        <!-- annotation 是针对指定的类 和 assignable 是针对所有继承或者扩展该类的类-->
+        <!-- context:exclude-filter 只排除expression里面的内容
+        <context:exclude-filter type="annotation" expression=""/>
+         -->
+        <!-- context:include-filter 只包含expression里面的内容
+            需配合 use-default-filters="false"（默认是true） 一起使用
+        <context:include-filter type="annotation" expression=""/>
+        -->
+    </context:component-scan>
 </beans>
