@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING/DTD BEAN/EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+    <bean id="chineseHello" class="com.hanchun.springdemo.ChineseHello"></bean>
+
+    <bean id="americanHello" class="com.hanchun.springdemo.AmericanHello"></bean>
+
+    <bean id="person" class="com.hanchun.springdemo.Person">
+        <!--<property name="sayHello" ref="americanHello"/>  &lt;!&ndash;注意这边的注入操作 &ndash;&gt;-->
+        <property name="sayHello" ref="chineseHello"/>  <!--注意这边的注入操作 -->
+    </bean>
+</beans>
