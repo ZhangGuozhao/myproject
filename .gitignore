@@ -6,7 +6,7 @@
 
 
 
-#нд╪Ч╪п
+#О©╫д╪О©╫О©╫О©╫
 apache-maven-3.5.0
 apache-tomcat-9.0.0.M26-windows-x64
 
@@ -18,3 +18,6 @@ mvnw
 #java
 target
 out
+testhibernate/testhibernate.iml
+*.iml
+testhibernate/testhibernate.iml
