@@ -20,10 +20,11 @@
     <!--不对静态资源的访问-->
     <mvc:default-servlet-handler/>
 
-    <!-- 进行注释驱动-->
+    <!-- 配置注解驱动-->
     <mvc:annotation-driven/>
 
     <!-- configure the InternalResourceViewResolver -->
+    <!--配置视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           id="internalResourceViewResolver">
         <!-- 前缀 -->

@@ -2,6 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING/DTD BEAN/EN"
         "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
+    <!--com.hanchun.springdemo配置-->
 
     <bean id="chineseHello" class="com.hanchun.springdemo.ChineseHello"></bean>
 
